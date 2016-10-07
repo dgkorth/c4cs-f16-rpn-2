@@ -3,29 +3,17 @@
 def calculate(myarg1):
 	stack = list()
 	for token in myarg1.split():
-		if token == '+':
-			arg1 = stack.pop()
-			arg2 = stack.pop()
-			result = arg1 + arg2
-			stack.append(result)
-		elif token == '-':
-			arg1 = stack.pop()
-			arg2 = stack.pop()
-			result = arg1 - arg2
-			stack.append(result)
-		elif token == '*':
-			arg1 = stack.pop()
-			arg2 = stack.pop()
-			result = arg1 * arg2
-			stack.append(result)
-		elif token == '/':
-			arg1 = stack.pop()
-			arg2 = stack.pop()
-			result = arg1 / arg2
-			stack.append(result)
-		else:
-			stack.append(int(token))
-		print(stack)
+        try:
+            stack.append(int(token))
+        except ValueError:
+            arg2 = stack.pop()
+            arg1 = stack.pop()
+            function = operators[token]
+            result = function(arg1, arg2)
+            stack.append(result)
+        print(stack)
+    if len(stack) != 1:
+        raise TypeError
 	return stack.pop()
 		
 def main():
